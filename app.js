@@ -9,6 +9,18 @@ const app = express();
 // cfg
 const PORT = 3333;
 
+// mongodb
+mongoose.connect('mongodb://127.0.0.1:27017', {
+  useMongoClient: true,
+});
+
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection err'));
+db.once('open', function() {
+  console.log('mongoose open')
+});
+
 // view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
