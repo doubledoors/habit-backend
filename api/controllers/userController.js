@@ -9,8 +9,6 @@ exports.getUsers = function(req, res) {
 };
 
 exports.createUser = function(req, res) {
-  console.log(req.body)
-  // console.log(res)
   var newUser = new User(req.body);
   newUser.save(function(err, user) {
     if (err) return console.error(err);
