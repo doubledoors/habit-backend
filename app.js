@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 // import routes
 const index = require('./routes/index');
 const users = require('./routes/users');
@@ -21,6 +22,14 @@ db.once('open', function() {
   console.log('mongoose open')
 });
 
+var Task = require('./api/models/userModel');
+var routes = require('./api/routes/userRoutes');
+routes(app);
+
+// handle post data w/ bodyParser
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 // view engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -28,10 +37,6 @@ app.set('view engine', 'pug');
 // routes
 app.use('/', index);
 app.use('/users', users);
-
-// app.get('/', function(req, res) {
-//   res.send('hello world');
-// });
 
 app.listen(PORT, function() {
   console.log('listening on port', PORT);
