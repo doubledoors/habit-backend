@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 // import routes
 const index = require('./routes/index');
 const users = require('./routes/users');
