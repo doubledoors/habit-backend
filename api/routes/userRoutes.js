@@ -1,9 +1,12 @@
-module.exports = function(app) {
-  var user = require('../controllers/userController');
+const express = require('express');
+const router = express.Router();
+require('../models/userModel.js');
+const cont = require('../controllers/userController.js');
 
-  app.route('/users')
-    .get(user.getUsers);
+router.get('/', cont.GET_USERS);
 
-  app.route('/create')
-    .post(user.createUser);
-}
+router.post('/create', cont.CREATE_USER);
+
+router.post('/:userId/delete', cont.DELETE_USER);
+
+module.exports = router;

@@ -1,17 +1,14 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('Users');
 
-exports.getUsers = function(req, res) {
-  User.find({}, function(err, users) {
-    if (err) return console.error(err);
-    res.json(users);
-  });
+exports.GET_USERS = function(req, res) {
+  res.send('GET_USERS');
 };
 
-exports.createUser = function(req, res) {
-  var newUser = new User(req.body);
-  newUser.save(function(err, user) {
-    if (err) return console.error(err);
-    res.json(user);
-  });
+exports.CREATE_USER = function(req, res) {
+  res.send('CREATE_USER');
+};
+
+exports.DELETE_USER = function(req, res) {
+  res.send('DELETE_USER');
 };
