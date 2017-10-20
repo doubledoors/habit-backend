@@ -2,13 +2,26 @@ var mongoose = require('mongoose');
 var User = mongoose.model('Users');
 
 exports.GET_USERS = function(req, res) {
-  res.send('GET_USERS');
+  User.find(function(err, user) {
+    if (err) res.send(err);
+    res.json(user);
+  });
 };
 
 exports.CREATE_USER = function(req, res) {
-  res.send('CREATE_USER');
+  var newUser = new User(req.body);
+  newUser.save(function(err, user) {
+    if (err) res.send(err);
+    res.json(user);
+  })
 };
 
 exports.DELETE_USER = function(req, res) {
-  res.send('DELETE_USER');
+  const userId = req.params.userId;
+  User.remove({
+    _id: userId,
+  }, function(err, user) {
+    if (err) res.send(err);
+    res.json({ message: 'user ' + userId + ' deleted'});
+  });
 };
