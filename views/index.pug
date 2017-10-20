@@ -1,4 +1,8 @@
 extends layout
 block content
-  h1= title
-  p welcome to #{title} index
+  h1 #{title} index
+  ul
+    li
+      a(href='/users') all users
+    li
+      a(href='/users/create') create user
