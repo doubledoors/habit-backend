@@ -12,6 +12,8 @@
   "dependencies": {
     "express": "^4.16.2",
     "mongoose": "^4.12.1",
+    "passport": "^0.4.0",
+    "passport-openid": "^0.4.0",
     "path": "^0.12.7",
     "pug": "^2.0.0-rc.4"
   },
