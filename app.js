@@ -1,11 +1,11 @@
-const express = require('express');
-const path = require('path');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+var express = require('express');
+var path = require('path');
+var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 var userRoutes = require('./api/routes/userRoutes');
 var indexRoutes = require('./api/routes/index');
-const app = express();
-const PORT = 3333;
+var app = express();
+var PORT = 3333;
 
 mongoose.connect('mongodb://127.0.0.1:27017', {
   useMongoClient: true,

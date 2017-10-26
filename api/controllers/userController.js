@@ -17,7 +17,7 @@ exports.CREATE_USER = function(req, res) {
 };
 
 exports.DELETE_USER = function(req, res) {
-  const userId = req.params.userId;
+  var userId = req.params.userId;
   User.remove({
     _id: userId,
   }, function(err, user) {
