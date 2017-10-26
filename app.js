@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var flash = require('connect-flash');
 var userRoutes = require('./api/routes/userRoutes');
 var indexRoutes = require('./api/routes/index');
 var app = express();
@@ -18,6 +20,13 @@ db.once('open', function() {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(session({
+  secret: 'REPLACE_ME_WITH_HEROKU_ENVVAR_FOR_PROD_YO',
+  resave: true,
+  saveUninitialized: true,
+}))
+app.use(flash());
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
