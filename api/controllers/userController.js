@@ -25,3 +25,20 @@ exports.DELETE_USER = function(req, res) {
     res.json({ message: 'user ' + userId + ' deleted'});
   });
 };
+
+exports.LOGIN_USER = function (req, res) {
+  User.findOne({
+    username: req.body.username
+  }, function(err, user) {
+    if (err) res.send(err);
+    if (!user) {
+      res.send('user not found')
+    } else {
+      if (user.password === req.body.password) {
+        res.send('pass OK, redirect to login')
+      } else {
+        res.send('incorrect pass')
+      }
+    }
+  });
+};
