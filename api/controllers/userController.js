@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('Users');
+var bcrypt = require('bcrypt');
 
 exports.GET_USERS = function(req, res) {
   User.find(function(err, user) {
@@ -34,11 +35,15 @@ exports.LOGIN_USER = function (req, res) {
     if (!user) {
       res.send('user not found')
     } else {
-      if (user.password === req.body.password) {
-        res.send('pass OK, redirect to login')
-      } else {
-        res.send('incorrect pass')
-      }
+      var plainTxt = req.body.password;
+      var hash = user.password;
+      bcrypt.compare(plainTxt, hash, function(err, compareResult) {
+        if (compareResult === true) {
+          res.send('PASS OK checked vs hash');
+        } else {
+          res.send('incorrect pass vs hash');
+        }
+      });
     }
   });
 };
