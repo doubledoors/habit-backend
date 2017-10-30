@@ -2,14 +2,14 @@ var mongoose = require('mongoose');
 var User = mongoose.model('Users');
 var bcrypt = require('bcrypt');
 
-exports.GET_USERS = function(req, res) {
+exports.GET_USERS = function(req, res, next) {
   User.find(function(err, user) {
     if (err) res.send(err);
     res.json(user);
   });
 };
 
-exports.CREATE_USER = function(req, res) {
+exports.CREATE_USER = function(req, res, next) {
   var newUser = new User(req.body);
   newUser.save(function(err, user) {
     if (err) res.send(err);
@@ -17,7 +17,7 @@ exports.CREATE_USER = function(req, res) {
   })
 };
 
-exports.DELETE_USER = function(req, res) {
+exports.DELETE_USER = function(req, res, next) {
   var userId = req.params.userId;
   User.remove({
     _id: userId,
@@ -27,7 +27,7 @@ exports.DELETE_USER = function(req, res) {
   });
 };
 
-exports.LOGIN_USER = function (req, res) {
+exports.LOGIN_USER = function (req, res, next) {
   User.findOne({
     username: req.body.username
   }, function(err, user) {
@@ -49,3 +49,15 @@ exports.LOGIN_USER = function (req, res) {
     }
   });
 };
+
+exports.LOGOUT_USER = function(req, res, next) {
+  if (req.session) {
+    req.session.destroy(function(err) {
+      if (err) {
+        return next(err);
+      } else {
+        return res.redirect('/');
+      }
+    })
+  }
+}
