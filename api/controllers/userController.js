@@ -37,9 +37,11 @@ exports.LOGIN_USER = function (req, res) {
     } else {
       var plainTxt = req.body.password;
       var hash = user.password;
+      var username = user.username;
       bcrypt.compare(plainTxt, hash, function(err, compareResult) {
         if (compareResult === true) {
-          res.send('PASS OK checked vs hash');
+          req.session.username = username;
+          res.redirect('/profile');
         } else {
           res.send('incorrect pass vs hash');
         }

@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var flash = require('connect-flash');
 var userRoutes = require('./api/routes/userRoutes');
+var profileRoutes = require('./api/routes/profileRoutes');
 var indexRoutes = require('./api/routes/index');
 var app = express();
 var PORT = 3333;
@@ -25,6 +26,9 @@ app.use(session({
   secret: 'REPLACE_ME_WITH_HEROKU_ENVVAR_FOR_PROD_YO',
   resave: true,
   saveUninitialized: true,
+  cookie: {
+    httpOnly: false,
+  }
 }))
 app.use(flash());
 
@@ -33,6 +37,7 @@ app.set('view engine', 'pug');
 
 app.use('/', indexRoutes);
 app.use('/users', userRoutes);
+app.use('/profile', profileRoutes);
 
 app.listen(PORT, function() {
   console.log('listening on port', PORT);
