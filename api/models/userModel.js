@@ -12,10 +12,6 @@ var UserSchema = new Schema({
     type: String,
     required: true,
   },
-  cPassword: {
-    type: String,
-    required: true,
-  }
 });
 
 module.exports = mongoose.model('Users', UserSchema);
